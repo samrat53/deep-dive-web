@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      let timeout;
+      const bufferCreate = () => {
+        clearTimeout(timeout);
+        timeout = setTimeout(() => {
+          populateDiv();
+        }, 100);
+      };
+      async function populateDiv() {
+        const a = document.getElementById("first");
+        const b = document.getElementById("second");
+        const response = await fetch(`url+a=${a}&b=${b}`);
+        const ans = await response.text();
+        let element = document.getElementById("final-sum");
+        element.innerHTML = ans;
+      }
+    </script>
+    <input type="text" id="first" oninput="bufferCreate()" placeholder="first number" />
+    <br />
+    <br />
+    <input type="text" id="second" oninput="bufferCreate()" placeholder="second number" />
+    <br />
+    <!-- <button onclick="populateDiv()">Calculate</button> -->
+    <div id="final-sum"></div>
+  </body>
+</html>
