@@ -13,7 +13,7 @@ app.post("/completed", async (req, res) => {
   try {
     await todoCollection.updateOne(
       {
-        _id: todoId,
+        _id: todoId._id,
       },
       {
         completed: true,
