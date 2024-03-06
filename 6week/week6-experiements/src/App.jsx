@@ -1,39 +1,35 @@
-import { memo, useEffect, useState } from "react";
-import "./App.css";
+import { useState } from "react";
+import { useEffect } from "react";
 
-const App = memo(() => {
-  const [todos, setTodos] = useState([]);
+function App() {
+  const [selectedId, setSelectedId] = useState(1);
+  return (
+    <div>
+      <button onClick={() => setSelectedId(1)}>1</button>
+      <button onClick={() => setSelectedId(2)}>2</button>
+      <button onClick={() => setSelectedId(3)}>3</button>
+      <button onClick={() => setSelectedId(4)}>4</button>
+      <button onClick={() => setSelectedId(5)}>5</button>
+      <Todo id={selectedId} />
+    </div>
+  );
+}
 
-  useEffect(() => { //donot allow use of async directly here
-    setInterval(() => {
-      fetch("https://dummyjson.com/todos/random").then(async (res) => {
-        const data = await res.json();
-        setTodos(prevTodos=>[...prevTodos, data]);
-      });
-    }, 5000);
-  }, []);
+function Todo({ id }) {
+  const [todo, setTodo] = useState({});
+  useEffect(() => {
+    fetch(`https://sum-server.100xdevs.com/todo?id=${id}`).then(async (res) => {
+      const json = await res.json();
+      setTodo(json.todo);
+    });
+  }, [id]);
 
   return (
-    <>
-      <div>
-        {todos.map((todo) => (
-          <RenderTodo
-            key={todo.id}
-            title={todo.todo}
-            completed={todo.completed}
-          />
-        ))}
-      </div>
-    </>
+    <div>
+      <h1>{todo.title}</h1>
+      <h4>{todo.description}</h4>
+    </div>
   );
-});
+}
 
-const RenderTodo = memo(({ title, completed }) => {
-  return (
-    <>
-      <h2>{title}</h2>
-      <h4>{completed ? "done" : "not done"}</h4>
-    </>
-  );
-});
 export default App;
