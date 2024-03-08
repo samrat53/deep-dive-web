@@ -1,5 +1,5 @@
 import { useMemo, useState } from "react";
-import { useEffect } from "react";
+import { useEffect, useCallback, useRef, use } from "react";
 
 function App() {
   const [inputValue, setInputValue] = useState(0);
@@ -16,7 +16,7 @@ function App() {
 
   // inplace of the above code we can write
 
-  let sum= useMemo(()=>{
+  let sum= useMemo(()=>{ //doesnot neet to create another state variable
     let temp=0;
     for(let i=1;i<=inputValue;i++){
       temp+=i;
