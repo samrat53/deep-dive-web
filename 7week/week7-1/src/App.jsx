@@ -1,8 +1,68 @@
 import "./App.css";
-import React, { useContext, useState } from "react";
-import { CountContext } from "./Context";
+//--------------------------------using recoil-------------------------------------------
+import {
+  RecoilRoot,
+  useRecoilState,
+  useRecoilValue,
+  useSetRecoilState,
+} from "recoil";
+import { countAtom, evenSelector } from "./store/atoms/count";
 
 export default function App() {
+  return (
+    <div>
+      <RecoilRoot>
+        <CountRecoil />
+      </RecoilRoot>
+    </div>
+  );
+}
+
+const CountRecoil = () => {
+  console.log("re-render count");
+  return (
+    <div>
+      <CountRendererRecoil />
+      <ButtonsRecoil />
+    </div>
+  );
+};
+
+const CountRendererRecoil = () => {
+  const count = useRecoilValue(countAtom); // got just the count here
+  console.log("re-render countRenderer");
+  return (
+    <>
+      <b>{count}</b>
+      <EvenCountRender />
+    </>
+  );
+};
+
+const EvenCountRender = () => {
+  const isEven=useRecoilValue(evenSelector);
+  return <div>{isEven? `It is even` : ``}</div>;
+};
+
+const ButtonsRecoil = () => {
+  // const [count, setCount] = useRecoilState(countAtom);
+  const setCount = useSetRecoilState(countAtom); 
+  //more optimised=> count is not fetched and hence is not re-rendered
+  
+  console.log("re-render buttons");
+  return (
+    <div>
+      <button onClick={() => setCount((prev) => prev + 1)}>Inc</button>
+      <button onClick={() => setCount((prev) => prev - 1)}>Dec</button>
+    </div>
+  );
+};
+
+// ------------------------using context api------------------------------------
+
+import React, { useContext, useState } from "react";
+import { CountContext } from "./Context";
+export function ContextAPI() {
   const [count, setCount] = useState(0);
   return (
     <div>
@@ -14,10 +74,12 @@ export default function App() {
 }
 
 const Count = () => {
-  return (<CountComponent />);
+  console.log("re-rendered Count");
+  return <CountComponent />;
 };
 
 const CountComponent = () => {
+  console.log("re-rendered CountComponent");
   return (
     <div>
       <CountRenderer />
@@ -25,7 +87,6 @@ const CountComponent = () => {
     </div>
   );
 };
-
 
 const CountRenderer = () => {
   const [count] = useContext(CountContext);
@@ -42,15 +103,7 @@ const Buttons = () => {
   );
 };
 
-
-
-
-
-
-
-
-
-
+// ------------------ using browser router and react lazy with suspence----------------------------
 
 import { BrowserRouter, Route, Routes, useNavigate } from "react-router-dom";
 import Fallback from "./components/Fallback";
