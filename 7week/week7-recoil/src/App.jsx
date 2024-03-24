@@ -8,6 +8,7 @@ import {
 import { notifications, totalNotificationSelector } from "./store/atoms";
 import { useEffect } from "react";
 import AtomFamily from "./AtomFamily";
+import SelectorFamily from "./SelectorFamily";
 // import {
 //   jobsAtom,
 //   messagingAtom,
@@ -21,6 +22,7 @@ function App() {
     <RecoilRoot>
       <MainApp />
       <AtomFamily/>
+      <SelectorFamily/>
     </RecoilRoot>
   );
 }
