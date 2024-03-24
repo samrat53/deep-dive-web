@@ -5,13 +5,15 @@ import {
   useRecoilValue,
   useSetRecoilState,
 } from "recoil";
-import {
-  jobsAtom,
-  messagingAtom,
-  networkAtom,
-  notificationAtom,
-  totalNotificationSelector,
-} from "./store/atoms";
+import { notifications, totalNotificationSelector } from "./store/atoms";
+import { useEffect } from "react";
+// import {
+//   jobsAtom,
+//   messagingAtom,
+//   networkAtom,
+//   notificationAtom,
+//   totalNotificationSelector,
+// } from "./store/atoms";
 
 function App() {
   return (
@@ -21,32 +23,36 @@ function App() {
   );
 }
 const MainApp = () => {
-  const networkCount = useRecoilValue(networkAtom);
-  const jobsCount = useRecoilValue(jobsAtom);
-  const notificatonCount = useRecoilValue(notificationAtom);
-
+  // const networkCount = useRecoilValue(networkAtom);
+  // const jobsCount = useRecoilValue(jobsAtom);
+  // const notificatonCount = useRecoilValue(notificationAtom);
   // const [messageCount, setMessagingCount] = useRecoilState(messagingAtom);
-  const messageCount = useRecoilValue(messagingAtom);
-  const setMessageCount = useSetRecoilState(messagingAtom);
+  // const messageCount = useRecoilValue(messagingAtom);
+  // const setMessageCount = useSetRecoilState(messagingAtom);
+  // const totalNotficationCount=useRecoilValue(totalNotificationSelector);
 
-  const totalNotficationCount=useRecoilValue(totalNotificationSelector);
+  // Asynchronous data quesries using recoil
+
+  const [networkCount, setNetworkCount] = useRecoilState(notifications);
+  const totalNotficationCount = useRecoilValue(totalNotificationSelector);
 
   return (
     <>
-      <button>Home ({totalNotficationCount})</button>
+      <button>Home</button>
       <button>
-        My Network ({networkCount >= 100 ? `99+` : networkCount})
+        My Network ({networkCount.network >= 100 ? `99+` : networkCount.network}
+        )
       </button>
-      <button>Jobs ({jobsCount})</button>
-      <button>Messaging ({messageCount})</button>
-      <button>Notifications ({notificatonCount})</button>
-      <button onClick={() => setMessageCount((prev) => prev + 1)}>
+      <button>Jobs ({networkCount.jobs})</button>
+      <button>Messaging ({networkCount.messaging})</button>
+      <button>Notifications ({networkCount.notifications})</button>
+      {/* <button onClick={() => setMessageCount((prev) => prev + 1)}>
         Inc message count ME
-      </button>
+      </button> */}
+      <button>Me ({totalNotficationCount})</button>
       <h2>Total notfications={totalNotficationCount}</h2>
     </>
   );
 };
-
 
 export default App;
