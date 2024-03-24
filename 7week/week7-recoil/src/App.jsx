@@ -7,6 +7,7 @@ import {
 } from "recoil";
 import { notifications, totalNotificationSelector } from "./store/atoms";
 import { useEffect } from "react";
+import AtomFamily from "./AtomFamily";
 // import {
 //   jobsAtom,
 //   messagingAtom,
@@ -19,6 +20,7 @@ function App() {
   return (
     <RecoilRoot>
       <MainApp />
+      <AtomFamily/>
     </RecoilRoot>
   );
 }
