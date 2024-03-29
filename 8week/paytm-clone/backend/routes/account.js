@@ -16,25 +16,25 @@ router.post("/transfer", authMiddleware, async (req, res) => {
 
   const { to, amount } = req.body;
 
-  const fromAccount = Account.findOne({ userId: req.userId });
+  const fromAccount = await Account.findOne({ userId: req.userId });
   if (!fromAccount || fromAccount.balance < amount) {
     await session.abortTransaction();
     return res.status(400).json({ message: "insufficient balance" });
   }
 
-  const toAccount = Account.findOne({ userId: to });
+  const toAccount = await Account.findOne({ userId: to });
   if (!toAccount) {
-    return res.status(400).json({ message: " account doesnot exist" });
     await session.abortTransaction();
+    return res.status(400).json({ message: " account doesnot exist" });
   }
 
-  Account.updateOne({ userId: to }, { $inc: { balance: amount } });
-  Account.updateOne(
+  await Account.updateOne({ userId: to }, { $inc: { balance: amount } });
+  await Account.updateOne(
     { userId: req.userId },
     { $inc: { balance: -amount } }
   );
 
-  await session.commitTransation();
+  await session.commitTransaction();
   res.status(200).json({ message: "transfer successfull" });
 });
 
