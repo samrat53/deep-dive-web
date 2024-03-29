@@ -1,5 +1,6 @@
 // backend/db.js
 const mongoose = require('mongoose');
+const { string } = require('zod');
 require('dotenv').config();
 const DB_URL=process.env.DB_URL;
 mongoose.connect(DB_URL);
@@ -34,8 +35,22 @@ const userSchema = new mongoose.Schema({
     }
 });
 
+const accountSchema=new mongoose.Schema({
+    userId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
+        required: true
+    },
+    balance: {
+        type: Number,
+        required: true
+    }
+})
+
+const Account=mongoose.model('Account', accountSchema);
 const User = mongoose.model('User', userSchema);
 
 module.exports = {
-	User
+	User,
+    Account
 };

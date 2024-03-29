@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const { User } = require("../db");
+const { User, Account } = require("../db");
 const jwt = require("jsonwebtoken");
 const { JWT_SECRET } = require("../config");
 const { signupBody, signinBody, updateBody } = require("../types");
@@ -10,6 +10,7 @@ router.use(authMiddleware);
 
 router.post("/signup", async (req, res) => {
   const { success } = signupBody.safeParse(req.body);
+  console.log(success);
   if (!success) {
     return res.status(411).json({
       message: "Email already taken / Incorrect inputs",
@@ -32,7 +33,14 @@ router.post("/signup", async (req, res) => {
     firstName: req.body.firstName,
     lastName: req.body.lastName,
   });
+
   const userId = user._id;
+  
+  await Account.create({
+    userId,
+    balance: Math.random() * 10000 + 1,
+  });
+
   const token = jwt.sign(
     {
       userId,
@@ -77,7 +85,7 @@ router.post("/signin", async (req, res) => {
   });
 });
 
-router.put("/", authMiddleware, async (res, res) => {
+router.put("/", authMiddleware, async (req, res) => {
   const { success } = updateBody.safeParse(req.body);
   if (!success) return res.status(411).json({ msg: "bad request" });
   await User.updateOne(req.body, {
