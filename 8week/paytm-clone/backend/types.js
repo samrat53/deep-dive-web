@@ -7,5 +7,15 @@ const signupBody=zod.object({
     password: zod.string()
 })
 
+const signinBody=zod.object({
+    username: zod.string().email(),
+    password: zod.string()
+})
 
-module.exports={signupBody};
+const updateBody=zod.object({
+    firstName: zod.string(),
+    lastName: zod.string(),
+    password: zod.string()
+})
+
+module.exports={signupBody, signinBody, updateBody};
