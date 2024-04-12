@@ -17,8 +17,8 @@ router.get("/balance", authMiddleware, async (req, res) => {
 });
 
 router.post("/transfer", authMiddleware, async (req, res) => {
-  // const session = await mongoose.startSession();
-  const session = await mongoose.start;
+  const session = await mongoose.startSession();
+  // const session = await mongoose.start; this doesnot work
 
   session.startTransaction();
   const { amount, to } = req.body;
