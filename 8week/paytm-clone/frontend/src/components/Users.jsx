@@ -5,13 +5,15 @@ import { useNavigate } from "react-router-dom";
 
 export const Users = () => {
   // Replace with backend call
-  const [users, setUsers] = useState([
-    {
-      firstName: firstname,
-      lastName: lastname,
-      _id: 12346675137,
-    },
-  ]);
+  const [users, setUsers] = useState([]);
+  const [filter, setFilter] = useState("");
+  useEffect(() => {
+    axios
+      .get(`http://localhost:3000/api/v1/bult?filter=${filter}`)
+      .then(async (response) => {
+        setUsers(response.data.user);
+      });
+  }, [filter]); //add debouncing here
 
   return (
     <>
@@ -20,6 +22,9 @@ export const Users = () => {
         <input
           type="text"
           placeholder="Search users..."
+          onChange={(e) => {
+            setFilter(e.target.value);
+          }}
           className="w-full px-2 py-1 border rounded border-slate-200"
         ></input>
       </div>
@@ -33,7 +38,7 @@ export const Users = () => {
 };
 
 function User({ user }) {
-
+  const navigate = useNavigate();
   return (
     <div className="flex justify-between">
       <div className="flex">
@@ -51,8 +56,12 @@ function User({ user }) {
 
       <div className="flex flex-col justify-center h-ful">
         <Button
+          onClick={() => {
+            navigate(`/send?id=${user._id}&name=${user.firstName}`);
+          }}
           label={"Send Money"}
         />
+        setUsers
       </div>
     </div>
   );

@@ -12,7 +12,7 @@ export const Signup = () => {
   const [lastName, setLastName] = useState("");
   const [username, setusername] = useState("");
   const [password, setPassword] = useState("");
-
+  const navigate=useNavigate();
   return (
     <div className="bg-slate-300 h-screen flex justify-center">
       <div className="flex flex-col justify-center">
@@ -61,6 +61,7 @@ export const Signup = () => {
                 );
                 localStorage.setItem("token",response.data.token); //stores the session in browser
                 // localStorage.removeItem("token");
+                navigate(`/dashboard`);
               }}
               label={"Sign up"}
             />
