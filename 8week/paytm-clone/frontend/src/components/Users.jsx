@@ -9,7 +9,7 @@ export const Users = () => {
   const [filter, setFilter] = useState("");
   useEffect(() => {
     axios
-      .get(`http://localhost:3000/api/v1/bult?filter=${filter}`)
+      .get(`http://localhost:3000/api/v1/user/bulk?filter=${filter}`)
       .then(async (response) => {
         setUsers(response.data.user);
       });
