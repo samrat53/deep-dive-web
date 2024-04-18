@@ -1,5 +1,6 @@
 import "./App.css";
 import DataFetchHook from "./DataFetchHook";
+import DeounceHook from "./DebounceHook";
 import IntervalHook from "./IntervalHook";
 
 function App() {
@@ -9,6 +10,7 @@ function App() {
     <>
       <DataFetchHook/>
       <IntervalHook/>
+      <DeounceHook/>
     </>
   );
 }
