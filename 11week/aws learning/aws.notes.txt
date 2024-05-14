@@ -1,0 +1,54 @@
+# try vulter
+# try digital ocean
+
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> deploying backends<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+
+process:
+make a key pair that is a SSH or password to the machine I rented on AWS
+generate a certificate, use this certificate to get into the aws machine's terminal
+give permission using: chmod 700 <certificate file name>
+the command is: ssh -i <certificate file name> ubuntu@<port number> to connect to the aws instance
+give internet access to the aws instance: 
+sudo vi <filename:/etc/resolve.conf> steps: press i to insert then press enter then go up then enter <nameserver 8.8.8.8> then press esc !wq enter to save and exit (exit : esc+ !q enter, add !wq to save and enter)
+the clone the github repo
+
+about the ports:
+connect to SSH via port 22
+connect to https networks via port 443
+connect to http networks via port number 80
+
+
+
+thats a fresh machine, and then install node in the machine
+harkirat: install via nvm
+then install a certain version of node to get npm
+git clone
+cd into the file
+npm i
+node index.js
+use pm2: pm2 start index.js to keep the port running even after exiting from the aws instance
+
+in the aws dashboard give access to the port to access from anywhere from in which our backend application is running
+
+the world connects to the aws machine through port 80, we can start multiple servers in multiple ports in  a single machine like on port 8080,8081 etc
+reverser proxies: routes backend1 requests from port 80 to 8080, backend2 requests from port 80 to 8081...
+for this we cab use nginx, that helps in doing reverse proxies along with a bunch of other things'
+
+install nginx
+
+1. nginx starts in port 80
+2. point backend1 and backend2 to nginx by putting the ip of the EC2 machine in the domain name provider
+3. tell nginx that backend1 points to port 8080 and backend2 points to port 8081, edit the nginx config file,
+command: sudo rm sudo vi /etc/nginx/nginx.conf
+sudo vi/etc/nginx/nginx.conf
+then edit the file
+restart ningix: sudo nginx -s reload
+then edit the domain and point the particular domain or backend url to the particular ipv4 pr ipv6 address of the created aws instance
+
+
+CERTIFICATE MANAGERMENT:
+certbot.eff.org
+ssl certificate for free from the org: Let's encrypt
+install certbot and go thru the tutorials in the website
+sudo certbot --nginx
+select the domain number and enter
