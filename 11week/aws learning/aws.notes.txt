@@ -1,6 +1,6 @@
 # try vulter
 # try digital ocean
-
+#get domain in namecheap.com to get a cheap domain name
 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> deploying backends<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
 process:
@@ -52,3 +52,9 @@ ssl certificate for free from the org: Let's encrypt
 install certbot and go thru the tutorials in the website
 sudo certbot --nginx
 select the domain number and enter
+
+
+
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>FRONTEND DEPLPOYMENT<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+
+objects: store in s3 stores.... along with CDNs

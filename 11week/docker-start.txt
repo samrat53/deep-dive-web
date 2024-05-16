@@ -1,0 +1,20 @@
+docker run
+docker ps
+docker kill
+
+using mongo:
+docker run -d -p 27017: 27017 mongo
+then the connection string will be: mongodb://localhost:27017 
+
+using postgres:
+docker run -e POSTGRES_PASSWORD=mysecrectpassword -d -p 5432:5432 postgres 
+connction string: postgresql://postgres:mysecrectpassword@localhost:5432/postgres
+-e-environment variable 
+
+if we run:
+docker run -e POSTGRES_PASSWORD=mysecrectpassword -e POSTGRES_USER=samrat -d -p 5432:5432 postgres
+connction string: postgresql://samrat:mysecrectpassword@localhost:5432/samrat
+
+since by defualt username and database name are the same
+
+read more from docker hub google
