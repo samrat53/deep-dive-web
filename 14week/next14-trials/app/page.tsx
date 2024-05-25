@@ -1,9 +1,9 @@
-import Image from "next/image";
+import { TabsDemo } from "@/components/tabsDemo";
 
 export default function Home() {
   return (
     <div>
-      Hello World
+      <TabsDemo/>
     </div>
   );
 }
