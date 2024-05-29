@@ -13,7 +13,6 @@ export default function RootLayout({children,}: Readonly<{children: React.ReactN
   return (
     <html lang="en">
       <body className={inter.className}>
-        <div className="p-4 border-b">Trials Bar </div>
         {children}
       </body>
     </html>
