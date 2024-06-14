@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import NextAuth from "next-auth/next";
 import  CredentialsProvider from "next-auth/providers/credentials";
+import { NEXT_AUTH } from "@/app/lib/auth";
 // export function GET(req: NextRequest,{params:{nextauth}}:{params:{
 //     nextauth: string[]
 // }}){
@@ -10,33 +11,7 @@ import  CredentialsProvider from "next-auth/providers/credentials";
 //     })
 // }
 
-const handler=NextAuth({
-    providers:[
-        CredentialsProvider({
-            name:"Email",
-            credentials:{
-                username:{label:"Enter your email",type:'text',placeholder:"Email"},
-                password:{label:"Enter your password",type:'password',placeholder:"Password"}
-            },async authorize(credentials:any){
-                const username=credentials.username;
-                const password=credentials.password;
-                console.log(username,password);
-                // const user=prisma.user.findOne({
-                //     where:{
-                //         email: username,
-                //         password:password
-                //     }
-                // })
-                return {
-                    id:"user.id",
-                    email:"user.email",
-                    name: "user.name"
-                }
-            }
-        })
-    ],
-    secret: process.env.NEXTAUTH_SECRET
-})
+const handler=NextAuth(NEXT_AUTH)
 
 export const GET=handler;
 export const POST=handler;
