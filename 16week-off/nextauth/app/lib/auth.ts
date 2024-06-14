@@ -1,5 +1,8 @@
 import  CredentialsProvider from "next-auth/providers/credentials";
+import GoogleProvider from "next-auth/providers/google"
+import GitHubProvider from "next-auth/providers/github"
 // pass this config to get get the user id or sub in the client and server components
+// for login with google: genrate clientid and secret with OAuth from gcp
 export const NEXT_AUTH={
     providers:[
         CredentialsProvider({
@@ -23,6 +26,14 @@ export const NEXT_AUTH={
                     name: "user.name"
                 }
             }
+        }),
+        GoogleProvider({
+            clientId:process.env.GOOGLE_CLIENT_ID || "",
+            clientSecret:process.env.GOOGLE_CLIENT_SECRET || ""
+        }),
+        GitHubProvider({
+            clientId:process.env.GITHUB_CLIENT_ID || "",
+            clientSecret:process.env.GITHUB_CLIENT_SECRET || ""
         })
     ],
     secret: process.env.NEXTAUTH_SECRET,
@@ -42,5 +53,8 @@ export const NEXT_AUTH={
             session.user.id=token.sub; // this gives the id to the client (frontend)
             return session;
         }
+    },
+    pages:{
+        signIn:"/signin" // with this tell that the new signin page is located here
     }
 }
