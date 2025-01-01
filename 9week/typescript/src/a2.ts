@@ -51,9 +51,9 @@ const identity=<T>(args:T)=>{
     return element[0];
  }
 
-getFirstElement(["name1", "name2"]).toLowerCase();
-getFirstElement([1, 2]);
-getFirstElement([true, false]);
-getFirstElement([{name: "jnakjnkj", num:122}]); // can take complex types
+getFirstElement<string>(["name1", "name2"]).toLowerCase();
+getFirstElement<number>([1, 2]);
+getFirstElement<boolean>([true, false]);
+getFirstElement<Userss>([{name: "jnakjnkj", num:122}]); // can take complex types
 // getFirstElement<string>(["kjjhn",1]); // like this prevent the mixed bag {try uncommenting to check}
 getFirstElement(["kjjhn",1]); // like this prevent the mixed bag
