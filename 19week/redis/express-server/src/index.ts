@@ -1,5 +1,5 @@
 import express from "express"
-import { createClient } from "redis"
+import { createClient } from "redis" // redis always connects to 6379 on this machine
 
 const app = express();
 const client = createClient();
